@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HCI Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .option {
+            margin: 10px 0;
+            padding: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        .selected {
+            background-color: #e0e0e0;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Human-Computer Interaction Quiz</h1>
+    <div id="quiz">
+        <div class="question">
+            <p>1. What is the primary goal of HCI?</p>
+            <label class="option"><input type="radio" name="q1"> a) Making computers faster</label>
+            <label class="option"><input type="radio" name="q1"> b) Creating effective user interfaces</label>
+            <label class="option"><input type="radio" name="q1"> c) Reducing hardware costs</label>
+            <label class="option"><input type="radio" name="q1"> d) Increasing memory capacity</label>
+        </div>
+        <div class="question">
+            <p>2. What does the term 'affordance' mean in HCI?</p>
+            <label class="option"><input type="radio" name="q2"> a) The cost of an interface</label>
+            <label class="option"><input type="radio" name="q2"> b) The perceived properties that suggest how to use something</label>
+            <label class="option"><input type="radio" name="q2"> c) The speed of interaction</label>
+            <label class="option"><input type="radio" name="q2"> d) The color scheme of an interface</label>
+        </div>
+        <div class="question">
+            <p>3. Which principle refers to the relationship between controls and their effects?</p>
+            <label class="option"><input type="radio" name="q3"> a) Mapping</label>
+            <label class="option"><input type="radio" name="q3"> b) Feedback</label>
+            <label class="option"><input type="radio" name="q3"> c) Consistency</label>
+            <label class="option"><input type="radio" name="q3"> d) Visibility</label>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.option input').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const questionDiv = this.closest('.question');
+                questionDiv.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+                this.parentElement.classList.add('selected');
+            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'c') {
+                e.preventDefault();
+                const selection = window.getSelection();
+                if (selection.toString().length > 0) {
+                    const range = selection.getRangeAt(0);
+                    const span = document.createElement('span');
+                    span.className = 'highlight';
+                    range.surroundContents(span);
+                    selection.removeAllRanges();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
