@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Part 1</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; background-color: #f4f4f4; }
+        .quiz-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); max-width: 600px; margin: auto; }
+        .question { margin-bottom: 15px; }
+        .next-btn { background-color: blue; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 5px; }
+	.highlight{
+		background-color : yellow;
+}
+    </style>
+    <script>
+        function saveAnswers() {
+            let form = document.getElementById("quizForm");
+            let formData = new FormData(form);
+            let answers = JSON.parse(localStorage.getItem("quizAnswers")) || {};
+
+            formData.forEach((value, key) => {
+                answers[key] = value;
+            });
+
+            localStorage.setItem("quizAnswers", JSON.stringify(answers));
+            window.location.href = "next5.html"; // Move to next page
+        }
+	document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'c') {
+                e.preventDefault();
+                const selection = window.getSelection();
+                if (selection.toString().length > 0) {
+                    const range = selection.getRangeAt(0);
+                    const span = document.createElement('span');
+                    span.className = 'highlight';
+                    range.surroundContents(span);
+                    selection.removeAllRanges();
+                }
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Quiz - Part 1</h2>
+        <form id="quizForm">
+            <div class="question">
+            <p>1.What is the primary goal of Human-Computer Interaction (HCI)?</p>
+            <label class="option"><input type="radio" name="q1"> a) Enhance hardware efficiency</label>
+            <label class="option"><input type="radio" name="q1"> b) Improve system performance</label>
+            <label class="option"><input type="radio" name="q1"> c) Improve the usability and user experience of systems</label>
+            <label class="option"><input type="radio" name="q1"> d) Increase programming speed</label>
+        </div>
+        <div class="question">
+            <p>2. Which of the following is NOT a key component of HCI?</p>
+            <label class="option"><input type="radio" name="q2"> a) User</label>
+            <label class="option"><input type="radio" name="q2"> b) Hardware</label>
+            <label class="option"><input type="radio" name="q2"> c) Interface</label>
+            <label class="option"><input type="radio" name="q2"> d) Compiler</label>
+        </div>
+        <div class="question">
+            <p>3. Which model describes how users interact with a system based on goals and actions?</p>
+            <label class="option"><input type="radio" name="q3"> a) Waterfall Model</label>
+            <label class="option"><input type="radio" name="q3"> b)  GOMS Model</label>
+            <label class="option"><input type="radio" name="q3"> c) Spiral Model</label>
+            <label class="option"><input type="radio" name="q3"> d) Agile Model</label>
+        </div>
+        <div class="question">
+            <p>4. Fitts’s Law in HCI is used to predict:</p>
+            <label class="option"><input type="radio" name="q4"> a)Typing speed</label>
+            <label class="option"><input type="radio" name="q4"> b) Mouse movement time based on distance and target size</label>
+            <label class="option"><input type="radio" name="q4"> c) Error rate in software applications</label>
+            <label class="option"><input type="radio" name="q4"> d) System boot time</label>
+        </div>
+        <div class="question">
+            <p>5. Which usability principle focuses on making the user interface familiar and intuitive?</p>
+            <label class="option"><input type="radio" name="q5"> a) Visibility</label>
+            <label class="option"><input type="radio" name="q5"> b) Consistency</label>
+            <label class="option"><input type="radio" name="q5"> c) Accessibility</label>
+            <label class="option"><input type="radio" name="q5"> d) Affordance</label>
+        </div>
+        
+            <button type="button" class="next-btn" onclick="saveAnswers()">Next</button>
+        </form>
+    </div>
+</body>
+</html>

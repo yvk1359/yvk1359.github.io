@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; background-color: #f4f4f4; }
+        .results-container { background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); max-width: 600px; margin: auto; }
+        .question { margin-bottom: 15px; }
+        .correct { color: red; font-weight: bold; }
+        .wrong { color: green; font-weight: bold; }
+    </style>
+    <script>
+        function displayResults() {
+            let answers = JSON.parse(localStorage.getItem("quizAnswers")) || {};
+            let correctAnswers = { "q1": "Improve the usability and user experience of systems","q2": "Compiler","q3": "GOMS Model","q4": "Mouse movement time based on distance and target size","q5": "Consistency", "q11": "Command Line Interface","q12": "The perceived and actual properties that indicate how an object should be used","q13": "Visibility of system status,Match between system and real world,Consistency and standards","q14": " To identify usability issues using predefined principles","q15": "Think-Aloud Protocol" };
+            let resultsDiv = document.getElementById("results");
+
+            let questions = [
+                { text: "1.  What is the primary goal of Human-Computer Interaction (HCI)?", name: "q1" },
+		{ text: "2. Which of the following is NOT a key component of HCI?", name: "q2" },
+		{ text: "3. Which model describes how users interact with a system based on goals and actions?", name: "q3" },
+		{ text: "4. Fitts’s Law in HCI is used to predict:", name: "q4" },
+		{ text: "5. Which usability principle focuses on making the user interface familiar and intuitive?", name: "q5" },
+
+                { text: "11. Which interaction style allows users to enter commands using text?", name: "q11" },
+                { text: "12. Affordance in HCI refers to:", name: "q12" },
+                { text: "13. Which of the following are key usability principles in HCI? (Select all that apply)", name: "q13" },
+                { text: "14. What is the purpose of heuristic evaluation in HCI?", name: "q14" },
+                { text: "15. Which evaluation method involves users performing tasks while thinking aloud?", name: "q15" }
+            ];
+
+            questions.forEach(q => {
+                let userAnswer = answers[q.name] || "Not Answered";
+                let isCorrect = userAnswer === correctAnswers[q.name];
+                let answerClass = isCorrect ? "correct" : "wrong";
+                let resultHTML = `<div class="question">
+                                    <p>${q.text}</p>
+                                    <p class="${answerClass}">Your Answer: ${userAnswer}</p>
+                                    <p>Correct Answer: ${correctAnswers[q.name]}</p>
+                                  </div>`;
+                resultsDiv.innerHTML += resultHTML;
+            });
+        }
+    </script>
+</head>
+<body onload="displayResults()">
+    <div class="results-container">
+        <h2>Quiz Results</h2>
+        <div id="results"></div>
+    </div>
+</body>
+</html>
